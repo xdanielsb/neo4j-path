@@ -60,7 +60,7 @@ match (a:city),(b:city) where a.name = 'c' and b.name = 'f' create (a)-[r:reltyp
 ## Writing shortest path
 
 ```neo4j
-match (a:city {name: 'd'}), (b:city {name: 'i'}),
+match (a:city {name: 'b'}), (b:city {name: 'i'}),
 p = shortestPath((a)-[*]-(b))
 where length(p) > 1
 return p;
