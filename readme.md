@@ -1,5 +1,3 @@
-# @author : github.com/xdanielsb
-
 # Create objects neo4j
 ```neo4j
 create (ab:city { name: "a"});
@@ -46,8 +44,29 @@ match p=()-[r]->() where r.name='->' return p
 match p=(a:city)-[r]->(b:city) where r.name='->' and a.name='a' and b.name='b' return p;
 ```
 
+
+
+
 # Delete a specific relation
 ```neo4j
 match p=(a:city)-[r]->(b:city) where r.name='->' and a.name='a' and b.name='b' delete r;
 ```
 
+
+# Add another relations
+
+```neo4j
+match (a:city),(b:city) where a.name = 'e' and b.name = 'h' create (a)-[r:reltype {name:'->'}]->(b);
+match (a:city),(b:city) where a.name = 'c' and b.name = 'f' create (a)-[r:reltype {name:'->'}]->(b);
+```
+
+## Writing shortest path
+
+```neo4j
+match (a:city {name: 'd'}), (b:city {name: 'i'}),
+p = shortestPath((a)-[*]-(b))
+where length(p) > 1
+return p;
+```
+
+<img src="assets/shortesh_pathbi.png"/>
