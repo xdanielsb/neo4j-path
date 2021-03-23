@@ -44,9 +44,6 @@ match p=()-[r]->() where r.name='->' return p
 match p=(a:city)-[r]->(b:city) where r.name='->' and a.name='a' and b.name='b' return p;
 ```
 
-
-
-
 # Delete a specific relation
 ```neo4j
 match p=(a:city)-[r]->(b:city) where r.name='->' and a.name='a' and b.name='b' delete r;
@@ -70,3 +67,31 @@ return p;
 ```
 
 <img src="assets/shortesh_pathbi.png"/>
+
+
+#### Now to have real fun install this library  ***Graph Data Science Library***
+
+##### create a graph
+- syntax
+```neo4j
+CALL gds.graph.create('nameOfGraph','NodeLabel','RelationshipType')
+```
+- mygraph
+```neo4j
+CALL gds.graph.create('nameAnakinSkywalker','city','reltype')
+```
+
+##### Now implementing page rank
+
+```neo4j
+CALL gds.pageRank.stream('nameAnakinSkywalker',
+    {maxIterations: 20, dampingFactor: 0.85}) YIELD nodeId, score
+RETURN gds.util.asNode(nodeId).name AS name, score
+ORDER BY score DESC LIMIT 10;
+```
+
+<img src="assets/page_rank.png"/>
+
+
+*** It could be interesting to implement dinic algorithm, feel free to pr."
+
